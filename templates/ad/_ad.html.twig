@@ -1,0 +1,17 @@
+<div class="col-4 mb-3">
+
+							<div class="card">
+							<h5 class="card-header text-center">{{ ad.rooms }} chambres  {{ ad.price }} €/nuit<br>Pas encore noté</h5>
+							<div class="card-body">
+							<img src="{{ ad.coverImage }}"  style="height: 200px;width:100%;display:block">
+							<h5 class="card-title">{{ ad.title | striptags }}</h5>
+							<p class="card-text">{{ ad.introduction }}</p>
+								<a href="{{ path('ads_show',{'slug':ad.slug})}}" class="btn btn-primary">En savoir plus</a>
+								 {% if app.user and app.user ==ad.author%}
+              						<a href="{{ path('ads_edit',{'slug':ad.slug})}}" class="btn btn-primary">Modifier</a>
+            					  {% endif %}
+
+
+							</div>       {# inserrer des liens #}
+							</div>
+						</div>

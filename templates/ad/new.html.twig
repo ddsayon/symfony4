@@ -1,0 +1,102 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Soumission d'une annonce{% endblock %}
+
+{% form_theme form with['bootstrap_4_layout.html.twig', _self] %}
+
+	{% block body %}
+		<div class="container">
+		<h1>Soumission d'une annonce</h1>
+		{{ form_start(form) }}
+
+		{{ form_row(form.title, {'label':"Titre de l'annonce",'attr':{'placeholder':"Titre de l'annonce", 'title': 'Titre avec minimum de 10 caractères et maxumum 50 caractères'}}) }}
+		{{ form_row(form.slug, {'label':"URL personnalisée"}) }}
+		{{ form_row(form.price, {'label':"Le prix/nuit ",'attr':{'placeholder':" prix/nuit"}}) }}
+		{{ form_row(form.introduction, {'label':"Résumé",'attr':{'placeholder':"Titre de l'annonce"}}) }}
+		{{ form_row(form.content, {'label':"Description",}) }}
+		{{ form_row(form.coverImage, {'label':"Image de l'annonce",}) }}
+		{{ form_row(form.rooms, {'label':"Nombre de chambres",}) }}
+		{{ form_row(form.images) }} {#ici form_row contient form.images, or images aussi est un from. On va essayer de demeler tt cela dans le block ci dessous#}
+         
+		<button type="button" id="add_image" class="btn btn-success">Ajouter une image</button><br><br>
+		<button type="submit" class="btn btn-success">Enregistrer l'annonce</button>
+
+		{{ form_end(form) }}
+
+ 
+
+	{% endblock %}
+
+{% block _annonce_images_entry_row %}{#annonce_image est id qui se trouve dans le div, entry_row fait reference à form de l'image#}
+	{#
+	{{dump(form)}};
+	#}
+<div class="row" id="{{id}}">
+	<div class="col">
+{{ form_row(form.url,{'label':false, 'attr':{'placeholder':"Url de l'image"}}) }}
+    </div>
+    <div class="col">
+{{form_row(form.caption,{'label':false, 'attr':{'placeholder':"Legende de l'image"}}) }}	
+    </div>
+    <div class="col-2">
+    	<button type="button" class="btn btn-danger del_image" data-block="{{id}}">X</button>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+	
+	<script type="text/javascript">
+
+	//variable globale
+	var counter ={{ form.images | length }};// le nombre d'entrée groupe ou block  d'images
+
+	$("#add_image").click(function(){
+
+      // console.log(counter);
+      //counter=counter +1; en decommentant cette ligne, mon compteur commence par 1
+      // on recupère le prototype du data contenu dans le div avec son id
+      var tmpl = $("#annonce_images").data("prototype")
+     // console.log(tmpl);
+     //on remplace _name_ par la valeur du counter
+     tmpl =tmpl.replace(/__name__/g,counter);
+     counter=counter +1;// à cette position, compteur commence par 0
+    // console.log(tmpl);
+
+
+    //on ajoute le prototype modifié à la fin de la div d'id annonce_images
+    $("#annonce_images").append(tmpl);
+
+
+    deleteBlock();
+
+
+
+	});
+
+    
+	function deleteBlock(){
+
+		$(".del_image").click(function(){
+
+			var bloc = $(this).data("block"); 
+
+			$("#"+bloc).remove();
+		})
+
+
+
+ 
+
+	}
+
+deleteBlock();
+
+	</script>
+
+
+{% endblock %}
+

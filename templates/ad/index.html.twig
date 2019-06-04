@@ -1,0 +1,47 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+
+
+	{% block body %}
+
+		{#
+		{{dump(ads)}}
+		
+		#}
+
+		<div class="container-fluid mt-3">
+
+			<div class="row">
+				<h2> Nos appartements</h2>
+			</div>
+			<div class="row mb-3">
+    {#
+	{% for i in 0..12 %}
+	#}			
+	   {% for ad in ads %}
+	         
+	         {% include ('ad/_ad.html.twig') %}
+
+		{% endfor %}
+					
+				</div>
+
+
+
+
+
+
+
+		</div>
+
+
+
+		
+
+				{% endblock %}
+
+

@@ -1,0 +1,31 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% form_theme form with['bootstrap_4_layout.html.twig', _self] %}
+
+	{% block body %}
+		<div class="container">
+		<h1>Modification du profile</h1>
+		{{ form_start(form) }}
+
+		{{ form_row(form.fisrtName, {'label':"Prenom",'attr':{'placeholder':"Entrer votre prenom", 'title': 'Prenom'}}) }}
+		{{ form_row(form.lastName, {'label':"Nom", 'attr':{'placeholder':"Entrer votre nom", 'title': 'Nom'}}) }}
+		{{ form_row(form.email, {'label':"Email",'attr':{'placeholder':" Votre email"}}) }}
+		{{ form_row(form.picture, {'label':"Ton avatar",'attr':{'placeholder':"Ajouter une photo ou un avatar"}}) }}
+		
+		{{ form_row(form.introduction, {'label':"Introduction",'attr':{'placeholder':"Votre introduction"}}) }}
+		{{ form_row(form.description, {'label':"Description",'attr':{'placeholder':"Votre description"}}) }}
+		
+         
+		<button type="submit" class="btn btn-success">Modification du profile</button>
+
+		{{ form_end(form) }}
+
+ 
+
+	{% endblock %}
+
+
